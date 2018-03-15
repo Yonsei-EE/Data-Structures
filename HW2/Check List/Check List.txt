@@ -1,0 +1,7 @@
+Student name	Student number	Score1	Score2	Total
+Jung Jiseung	2012142031	35	65	100
+Kim Kildong	23492050	45	55	100
+Son Ohgon	2583942052	23	12	35
+Gwang Huimun	69239204	43	70	113
+Park Jiseong	345323	33	55	88
+----------	----------	35.80	51.40	87.20

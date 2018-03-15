@@ -1,0 +1,5 @@
+// User Settings
+{
+    "git.autofetch": false, // disable credential prompts
+    "C_Cpp.intelliSenseEngine": "Tag Parser" // Fix undefined identifiers 
+}
