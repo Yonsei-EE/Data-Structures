@@ -22,14 +22,14 @@ int main()
 	double R;
 
 	in = fopen("panorama.tga", "rb");
-        fread(targaheader, sizeof(targaheader), 1, in);
+    fread(targaheader, sizeof(targaheader), 1, in);
 
 
 	// settings for omni image.. 640x480
 	originX = 344.0;        // the center of view is set.. (344, 227)px
-        originY = 227.0;
-        outerMostR = 185.0;     // the outermost radius and innermost radius is set.. 25~185px
-        innerMostR = 25.0;
+    originY = 227.0;
+    outerMostR = 185.0;     // the outermost radius and innermost radius is set.. 25~185px
+    innerMostR = 25.0;
 	width = 640;
 	height = 480;
 	nextRowBuffout = width * 3;
@@ -38,8 +38,8 @@ int main()
 
 	// settings for pano image.. 360x115
 	wedges = 360.0;		// the sampling rate for each circle layer is set.. 360px
-	layers = (int)log(outerMostR / innerMostR) / log((wedges + PI) / (wedges - PI)) + 1;	
-				// # of circle layers in reference to the sampling rate
+	layers = outerMostR;	
+						// # of circle layers in reference to the sampling rate
 	nextRowBuffer = wedges * 3;	 
 	sizeOfBuffer = layers * wedges * 3;
 	buffer = (unsigned char *)malloc(sizeOfBuffer + 1);
@@ -57,11 +57,11 @@ int main()
 			y = i - originY;
 
 			// scan dougnut area and collect corresponding pano pixels
-			if (pow(x, 2) + pow(y, 2) < pow(outerMostR, 2) && pow(x, 2) + pow(y, 2) > pow(innerMostR, 2))
+			if (pow(x, 2) + pow(y, 2) < pow(outerMostR, 2))
 			{
 				// calculate corresponding pano pixel coordinates
 				R = sqrt(pow(x, 2) + pow(y, 2));
-				p = log(R / innerMostR) / log((wedges + PI) / (wedges - PI));
+				p = R;
 
 				if (x != 0)
 					s = wedges / (2 * PI) * atan((double)y / x);

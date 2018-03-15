@@ -41,7 +41,7 @@ int main()
 	
 	// settings for pano image.. 360x115
 	wedges = 360;	// the sampling rate for each circle layer is set.. 360px
-	layers = (int)log(outerMostR / innerMostR) / log((wedges + PI) / (wedges - PI)) + 1;
+	layers = outerMostR;
 			// # of circle layers in reference to the sampling rate
 	nextRowBuffout = wedges * 3;
 	sizeOfBuffout = layers * wedges * 3;
@@ -56,7 +56,7 @@ int main()
 			s = (k%nextRowBuffout) / 3;
 
 			// calculate corresponding omni coordinates
-			R = exp(p*log((wedges + PI) / (wedges - PI)))*innerMostR;
+			R = p;
 			x = R*cos(2 * PI*s / wedges);
 			y = R*sin(2 * PI*s / wedges);
 			j = (x + originX) * 3;
