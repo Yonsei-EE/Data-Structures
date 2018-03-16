@@ -1,9 +1,7 @@
-////////////////// list.h
-typedef int ElementType;
-
-/* START: fig3_6.txt */
 #ifndef _List_H
 #define _List_H
+
+typedef int ElementType;
 
 struct Node;
 typedef struct Node *PtrToNode;
@@ -30,5 +28,5 @@ struct Node
 	Position    Next;
 };
 
-#endif    /* _List_H */
-/* END */#pragma once
+#endif
+#pragma once
