@@ -2,11 +2,12 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h> //malloc
-#include <ctype.h>  //isdigit
+#include <stdlib.h> // for malloc and relloc
+#include <ctype.h>  // for isdigit
 #include <math.h>
 #include "stack.h"
 
+// prompts for a line of notation and gives a dynamically allocated string
 char *getln()
 {
     char *line = NULL, *tmp = NULL;
@@ -42,39 +43,43 @@ char *getln()
     return line;
 }
 
-short parenthesisMatch(char *equation)
+// checks whether the parenthesis in a given notation has no errors
+short parenthesisMatch(char *notation)
 {
     int i = 0;
     short error = 0, open = 0;
 
-    while (equation[i] != '\0' && error != 1)
+    // count and keep track of how many parenthesises are open
+    while (notation[i] != '\0' && error != 1)
     {
         if (open <= 0)
         {
-            if (equation[i] == ')')
+            if (notation[i] == ')')
             {
                 open--;
                 error = 1;
                 break;
             }
-            else if (equation[i] == '(')
+            else if (notation[i] == '(')
                 open += 1;
         }
         else
         {
-            if (equation[i] == '(')
+            if (notation[i] == '(')
                 open++;
 
-            else if (equation[i] == ')')
+            else if (notation[i] == ')')
                 open--;
         }
 
         i++;
     }
 
+    // returns number of open parenthesises. Error if non-zero
     return open;
 }
 
+// checks if character is an operator and what rank it is. Higher rank means higher precedence.
 int isOperator(char c)
 {
     if (c == '+' || c == '-')
@@ -90,6 +95,7 @@ int isOperator(char c)
     return 0;
 }
 
+// converts a given infix notation to postfix
 void infixToPostfix(char *infix, char *postfix)
 {
     int rank;
@@ -98,19 +104,25 @@ void infixToPostfix(char *infix, char *postfix)
 
     S = CreateStack();
 
+    // checks each character of infix by incrementing the pointer position
     while (infix[0] != '\0')
     {
         rank = isOperator(infix[0]);
+        // if character is a digit, concatenate it to the postfix notation string
         if (isdigit(infix[0]))
         {
             sprintf(val, "%d ", (int)strtol(infix, &infix, 10));
             strcat(postfix, val);
         }
+
+        // if character is a open parenthesis, push it into the stack
         else if (infix[0] == '(')
         {
             Push(infix[0], S);
             infix++;
         }
+
+        //if character is a closing parenthesis, pop everything on the stack until it reaches the corresponding open parenthesis
         else if (infix[0] == ')')
         {
             while (Top(S) != '(')
@@ -124,29 +136,34 @@ void infixToPostfix(char *infix, char *postfix)
             }
             Pop(S);
         }
+
+        // if character is a operator..
         else if (rank)
         {
             if (rank == 3)
                 rank++;
 
+            // compare the the precedence of the character with the element on top of the stack
             while (!IsEmpty(S))
             {
+                // if the character has a higher precedence than the top of the stack push it into the stack
                 if (isOperator(Top(S)) < rank)
                 {
                     Push(infix[0], S);
                     break;
                 }
+                // if not then pop the stack and contatenate it to the postfix notation
                 else
                 {
                     c[0] = Top(S);
                     c[1] = ' ';
                     c[2] = 0;
                     strcat(postfix, c);
-
                     Pop(S);
                 }
-            }
+            }// repeat until the stack is not empty
 
+            // if the stack is empty push the operator into the stack
             if (IsEmpty(S))
             {
                 Push(infix[0], S);
@@ -156,8 +173,9 @@ void infixToPostfix(char *infix, char *postfix)
         }
         else
             infix++;
-    }
+    }//  repeat until all characters of the infix are scanned
 
+    // after all characters are scanned add any character that the stack may have to the postfix string
     while (!IsEmpty(S))
     {
         c[0] = Top(S);
@@ -167,24 +185,32 @@ void infixToPostfix(char *infix, char *postfix)
         Pop(S);
     }
 
+    // dispose of stack
     MakeEmpty(S);
     DisposeStack(S);
 }
 
+// evaluates a postfix notation and returns the answer
 int evaluate(char *postfix)
 {
     int *tmp, ans, i = 0;
     char val[12];
 
+    // we use an integer array instead of the character stack for direct calculation
+    // for better intuitive understanding I will use the word 'stack' instead of 'integer array'
     tmp = (int *)malloc(sizeof(int) * strlen(postfix));
 
+    // we scan the postfix notation until all characters are scanned
     while (postfix[0] != '\0')
     {
+        // if character is a digit we push it into the stack
         if (isdigit(postfix[0]))
         {
             tmp[i] = (int)strtol(postfix, &postfix, 10);
             i++;
         }
+        // if character is an operator, the last two elements of our stack are popped.
+        // the two elements are then evaluated and pushed into the stack.
         else if (isOperator(postfix[0]))
         {
             switch (postfix[0])
@@ -220,6 +246,7 @@ int evaluate(char *postfix)
             postfix++;
     }
 
+    // return answer and dispose stack.
     ans = tmp[0];
     free(tmp);
 
@@ -231,18 +258,23 @@ int main()
     char *infix, *postfix;
     short match;
     
+    // gets infix notation
     infix = getln();
-    postfix = (char *)malloc(sizeof(char) * (strlen(infix) + 1) * 4);
+    // allocates memory for the postfix notation. For readability we will space the characters with 3 times more space
+    postfix = (char *)malloc(sizeof(char) * (strlen(infix) + 1) * 3);
 
+    // execute penthesis matching
     match = parenthesisMatch(infix);
     if (match != 0)
         printf("Not Matched\n");
     else
         printf("Matched\n");
 
+    // convert infix notation to postfix
     infixToPostfix(infix, postfix);
     printf("Postfix: %s\n", postfix);
 
+    // evaluate the postfix notation
     printf("Ans: %d\n", evaluate(postfix));
 
     free(infix);
