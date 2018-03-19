@@ -191,14 +191,15 @@ void infixToPostfix(char *infix, char *postfix)
 }
 
 // evaluates a postfix notation and returns the answer
-int evaluate(char *postfix)
+double evaluate(char *postfix)
 {
-    int *tmp, ans, i = 0;
+    double *tmp, ans;
+    int i = 0;
     char val[12];
 
     // we use an integer array instead of the character stack for direct calculation
     // for better intuitive understanding I will use the word 'stack' instead of 'integer array'
-    tmp = (int *)malloc(sizeof(int) * strlen(postfix));
+    tmp = (double *)malloc(sizeof(double) * strlen(postfix));
 
     // we scan the postfix notation until all characters are scanned
     while (postfix[0] != '\0')
@@ -206,7 +207,7 @@ int evaluate(char *postfix)
         // if character is a digit we push it into the stack
         if (isdigit(postfix[0]))
         {
-            tmp[i] = (int)strtol(postfix, &postfix, 10);
+            tmp[i] = (double)strtol(postfix, &postfix, 10);
             i++;
         }
         // if character is an operator, the last two elements of our stack are popped.
@@ -233,7 +234,7 @@ int evaluate(char *postfix)
                 i--;
                 break;
             case '^':
-                tmp[i - 2] = (int)pow(tmp[i - 2], tmp[i - 1]);
+                tmp[i - 2] = (double)pow(tmp[i - 2], tmp[i - 1]);
                 i--;
                 break;
             case '!':
@@ -253,11 +254,37 @@ int evaluate(char *postfix)
     return ans;
 }
 
+// trim floating point number
+void morphNumericString (char *s, int n) {
+    char *p;
+    int count;
+
+    p = strchr (s,'.');         // Find decimal point, if any.
+    if (p != NULL) {
+        count = n;              // Maximum decimals allowed.
+        while (count >= 0) {    
+             count--;
+             if (*p == '\0')    // If there's less than desired.
+                 break;
+             p++;               // Next character.
+        }
+
+        *p-- = '\0';            // Truncate string.
+        while (*p == '0')       // Remove trailing zeros.
+            *p-- = '\0';
+
+        if (*p == '.') {        // If all decimals were zeros, remove ".".
+            *p = '\0';
+        }
+    }
+}
+
 int main()
 {
     char *infix, *postfix;
     short match;
-    
+    char ans[10];
+
     // gets infix notation
     infix = getln();
     // allocates memory for the postfix notation. For readability we will space the characters with 3 times more space
@@ -275,7 +302,9 @@ int main()
     printf("Postfix: %s\n", postfix);
 
     // evaluate the postfix notation
-    printf("Ans: %d\n", evaluate(postfix));
+    sprintf(ans, "%lf", evaluate(postfix));
+    morphNumericString(ans, 10);
+    printf("Ans: %s\n", ans);
 
     free(infix);
     free(postfix);
