@@ -12,9 +12,9 @@ Stack CreateStack()
     Stack S;
 
     S = malloc(sizeof(struct Node));
+    
     if(S == NULL)
-    printf("Out of space!");
-    MakeEmpty(S);
+        printf("Out of space!");
 
     return S;
 }

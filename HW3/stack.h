@@ -22,4 +22,3 @@ struct Node
 };
 
 #endif
-#pragma once
