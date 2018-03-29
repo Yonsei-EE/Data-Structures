@@ -1,18 +1,35 @@
-        #ifndef _BinHeap_H
-        #define _BinHeap_H
+#ifndef _BinHeap_H
+#define _BinHeap_H
 
-        typedef int ElementType;
+typedef int Priority;
 
-        struct HeapStruct;
-        typedef struct HeapStruct *PriorityQueue;
+struct Cell;
+typedef struct Cell *PtrToCell;
+struct HeapStruct;
+typedef struct HeapStruct *PriorityQueue;
 
-        PriorityQueue Initialize( int MaxElements );
-        void Destroy( PriorityQueue H );
-        void MakeEmpty( PriorityQueue H );
-        void Insert( ElementType X, PriorityQueue H );
-        ElementType DeleteMin( PriorityQueue H );
-        ElementType FindMin( PriorityQueue H );
-        int IsEmpty( PriorityQueue H );
-        int IsFull( PriorityQueue H );
+PriorityQueue Initialize(int MaxElements);
+void Destroy(PriorityQueue H);
+void MakeEmpty(PriorityQueue H);
+void Insert(PtrToCell X, PriorityQueue H);
+PtrToCell GetMin(PriorityQueue H);
+PtrToCell FindMin(PriorityQueue H);
+int IsEmpty(PriorityQueue H);
+int IsFull(PriorityQueue H);
 
-        #endif
+struct Cell
+{
+	Priority F;
+	PtrToCell Parent;
+	int x;
+	int y;
+};
+
+struct HeapStruct
+{
+	int Capacity;
+	int Size;
+	PtrToCell *Cells;
+};
+
+#endif

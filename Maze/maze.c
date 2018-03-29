@@ -1,26 +1,58 @@
 #include <stdio.h>
-#include "stack.h"
+#include "binheap.h"
+#include <stdlib.h>
+
+PtrToCell NewNode(Priority F, PtrToCell Parent, int x, int y) {
+	PtrToCell newNode = malloc(sizeof(struct Cell));
+	newNode->F = F;
+	newNode->Parent = Parent;
+	newNode->x = x;
+	newNode->y = y;
+}
 
 int main()
 {
-    PtrToCell Parent;
-    Parent->Element = '*';
-    Parent->Parent = NULL;
-    Parent->x = 0;
-    Parent->y = 0;
+	int i, j;
+	long seed;
+	char maze[15][15];
+	PtrToCell Temp, newNode;
+	
+	// Initialize maze
+	for(i=0; i<15; i++) {
+		for(j=0; j<15; j++) {
+			maze[j][i] = '0';
+		}
+	}
 
-    PtrToCell Child;
-    Child->Element = '1';
-    Child->Parent = Parent;
-    Child->x = 1;
-    Child->y = 0;
+	// Get random seed
+	printf("Type your student number: ");
+	scanf("%ld", &seed);
+	srand(seed);
+	for(i=0; i<15*15/2; i++) {
+		maze[rand()%15][rand()%15] = '*';
+	}
 
-    Stack S = CreateStack();
-    Push(Parent, S);
-    Push(Child,S);
+	// Set the start and goal
+	maze[0][0] = '0';
+	maze[14][14] = '0';
 
-    PtrToCell Temp;
-    Pop(S);
+	// Print maze
+	for(i=0; i<15; i++) {
+		for(j=0; j<15; j++) {
+			printf("%c ", maze[j][i]);
+		}
+		printf("\n");
+	}
 
-    return 0;
+	PriorityQueue Q = Initialize(1000);
+
+	for(i=0; i<2; i++) {
+		newNode = NewNode(3-i,NULL,0,i);
+		Insert(newNode, Q);
+	}
+
+	Temp = GetMin(Q);
+	printf("(%d,%d)\n", Temp->x, Temp->y);
+
+	return 0;
 }
