@@ -19,6 +19,7 @@ int IsFull(PriorityQueue H);
 
 struct Cell
 {
+	Priority G;
 	Priority F;
 	PtrToCell Parent;
 	int x;
