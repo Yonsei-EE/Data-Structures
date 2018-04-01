@@ -7,10 +7,10 @@
 #define mazeWidth 15 
 #define mazeHeight 15 
  
-void delay(int number_of_seconds)
+void delay(int milli_seconds)
 {
 	// Converting time into milli_seconds
-	int milli_seconds = 1000 * number_of_seconds;
+	// int milli_seconds = 1000 * number_of_seconds;
 
 	// Stroing start time
 	clock_t start_time = clock();
@@ -165,7 +165,7 @@ PtrToCell exploreNode(char maze[mazeWidth][mazeHeight], PriorityQueue fringe) {
 	printf("Finding path for maze...\n");
 	printMaze(maze);
 	printf("\n\n");
-	delay(100);
+	delay(500);
 
 	// Recursively explore next node
 	return exploreNode(maze, fringe);
@@ -183,7 +183,7 @@ void setShortestPath(char maze[mazeWidth][mazeHeight], PtrToCell goal) {
 		printf("Finding path for maze...\n");
 		printMaze(maze);
 		printf("\n\n");
-		delay(100);
+		delay(200);
 	}
 }
 
