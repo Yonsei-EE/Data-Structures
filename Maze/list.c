@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "list.h"
 
-List MakeEmpty(List L)
+List ListMakeEmpty(List L)
 {
 	if (L != NULL)
 		DeleteList(L);
@@ -13,7 +13,7 @@ List MakeEmpty(List L)
 	return L;
 }
 
-int IsEmpty(List L)
+int ListIsEmpty(List L)
 {
 	return L->Next == NULL;
 }
@@ -23,22 +23,22 @@ int IsLast(Position P, List L)
 	return P->Next == NULL;
 }
 
-Position Find(ElementType X, List L)
+Position Find(ElementType x, ElementType y,  List L)
 {
 	Position P;
 
 	P = L->Next;
-	while (P != NULL && P->Element != X)
+	while (P != NULL && (P->x != x || P->y != y))
 		P = P->Next;
 
 	return P;
 }
 
-void Delete(ElementType X, List L)
+void Delete(ElementType x, ElementType y, List L)
 {
 	Position P, TmpCell;
 
-	P = FindPrevious(X, L);
+	P = FindPrevious(x, y, L);
 
 	if (!IsLast(P, L))
 	{
@@ -48,18 +48,18 @@ void Delete(ElementType X, List L)
 	}
 }
 
-Position FindPrevious(ElementType X, List L)
+Position FindPrevious(ElementType x, ElementType y, List L)
 {
 	Position P;
 
 	P = L;
-	while (P->Next != NULL && P->Next->Element != X)
+	while (P->Next != NULL && (P->Next->x != x || P->Next->y != y))
 		P = P->Next;
 
 	return P;
 }
 
-void Insert(ElementType X, List L, Position P)
+void ListInsert(ElementType x, ElementType y, List L, Position P)
 {
 	Position TmpCell;
 
@@ -67,7 +67,8 @@ void Insert(ElementType X, List L, Position P)
 	if (TmpCell == NULL)
 		printf("Out of space!!!");
 
-	TmpCell->Element = X;
+	TmpCell->x = x;
+	TmpCell->y = y;
 	TmpCell->Next = P->Next;
 	P->Next = TmpCell;
 }
@@ -92,7 +93,7 @@ void PrintList(List L)
 	P = L->Next;
 	while (P != NULL)
 	{
-		printf("%d ", P->Element);
+		printf("(%d, %d) ", P->x, P->y);
 		P = P->Next;
 	}
 }
@@ -110,9 +111,4 @@ Position First(List L)
 Position Advance(Position P)
 {
 	return P->Next;
-}
-
-ElementType Retrieve(Position P)
-{
-	return P->Element;
 }
