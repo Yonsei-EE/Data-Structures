@@ -38,16 +38,16 @@ void MakeEmpty(Stack S)
 
 void Push(PtrToCell CurrentCell, Stack S)
 {
-	PtrToNode TmpCell;
+	PtrToNode TmpNode;
 
-	TmpCell = malloc(sizeof(struct Node));
-	if(TmpCell == NULL)
+	TmpNode = malloc(sizeof(struct Node));
+	if(TmpNode == NULL)
 		printf("Out of space!");
 	else
 	{
-		TmpCell->CellElement = CurrentCell;
-		TmpCell->Next = S->Next;
-		S->Next = TmpCell;
+		TmpNode->CellElement = CurrentCell;
+		TmpNode->Next = S->Next;
+		S->Next = TmpNode;
 	}
 }
 
@@ -63,18 +63,18 @@ PtrToCell Top(Stack S)
 
 PtrToCell Pop(Stack S)
 {
-	PtrToNode FirstCell;
-	PtrToCell FirstCellElement;
+	PtrToNode FirstNode;
+	PtrToCell FirstCell;
 
 	if(IsEmpty(S))
 		printf("Empty Stack");
 	else
 	{
-		FirstCell = S->Next;
-		FirstCellElement = FirstCell->CellElement;
+		FirstNode = S->Next;
+		FirstCell = FirstNode->CellElement;
 		S->Next = S->Next->Next;
-		free(FirstCell);
+		free(FirstNode);
 	}
 
-	return FirstCellElement;
+	return FirstCell;
 }

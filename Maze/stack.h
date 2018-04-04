@@ -1,8 +1,6 @@
 #ifndef _STACK_H
 #define _STACK_H
 
-typedef char ElementType;
-
 struct Cell;
 typedef struct Cell *PtrToCell;
 struct Node;
@@ -19,8 +17,6 @@ PtrToCell Pop(Stack S);
 
 struct Cell
 {
-	ElementType Element;
-	PtrToCell Parent;
 	int x;
 	int y;
 };
