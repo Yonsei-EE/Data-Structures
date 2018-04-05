@@ -89,34 +89,15 @@ int exploreNode(char maze[mazeWidth][mazeHeight], Stack fringe) {
 	if(x==mazeWidth-1 && y==mazeHeight-1)
 		return 1;
 
-	// Find and explore non-wall, non-visited, adjacent nodes (counter-clockwise direction)
+	// Find and explore non-wall, non-visited, adjacent nodes (clockwise direction)
 	if(x!=mazeWidth-1 && maze[x+1][y]!='*' && maze[x+1][y]!='X' && !success) {
 		newNode = createNode(x+1, y);
 		Push(newNode, fringe);
 		success = exploreNode(maze, fringe);
 	}
-	if(x!=mazeWidth-1 && y!=0 && maze[x+1][y-1]!='*' && maze[x+1][y-1]!='X' && !success) {
-		newNode = createNode(x+1, y-1);
-		Push(newNode, fringe);
-		success = exploreNode(maze, fringe);
-	}
-	if(y!=0 && maze[x][y-1]!='*' && maze[x][y-1]!='X' && !success) {
-		newNode = createNode(x, y-1);
-		Push(newNode, fringe);
-		success = exploreNode(maze, fringe);
-	}
-	if(x!=0 && y!=0 && maze[x-1][y-1]!='*' && maze[x-1][y-1]!='X' && !success) {
-		newNode = createNode(x-1, y-1);
-		Push(newNode, fringe);
-		success = exploreNode(maze, fringe);
-	}
-	if(x!=0 && maze[x-1][y]!='*' && maze[x-1][y]!='X' && !success) {
-		newNode = createNode(x-1, y);
-		Push(newNode, fringe);
-		success = exploreNode(maze, fringe);
-	}
-	if(x!=0 && y!=mazeHeight-1 && maze[x-1][y+1]!='*' && maze[x-1][y+1]!='X' && !success) {
-		newNode = createNode(x-1, y+1);
+	if(x!=mazeWidth-1 && y!=mazeHeight-1
+		       	&& maze[x+1][y+1]!='*'&& maze[x+1][y+1]!='X' && !success) {
+		newNode = createNode(x+1, y+1);
 		Push(newNode, fringe);
 		success = exploreNode(maze, fringe);
 	}
@@ -125,9 +106,28 @@ int exploreNode(char maze[mazeWidth][mazeHeight], Stack fringe) {
 		Push(newNode, fringe);
 		success = exploreNode(maze, fringe);
 	}
-	if(x!=mazeWidth-1 && y!=mazeHeight-1
-		       	&& maze[x+1][y+1]!='*'&& maze[x+1][y+1]!='X' && !success) {
-		newNode = createNode(x+1, y+1);
+	if(x!=0 && y!=mazeHeight-1 && maze[x-1][y+1]!='*' && maze[x-1][y+1]!='X' && !success) {
+		newNode = createNode(x-1, y+1);
+		Push(newNode, fringe);
+		success = exploreNode(maze, fringe);
+	}
+	if(x!=0 && maze[x-1][y]!='*' && maze[x-1][y]!='X' && !success) {
+		newNode = createNode(x-1, y);
+		Push(newNode, fringe);
+		success = exploreNode(maze, fringe);
+	}
+	if(x!=0 && y!=0 && maze[x-1][y-1]!='*' && maze[x-1][y-1]!='X' && !success) {
+		newNode = createNode(x-1, y-1);
+		Push(newNode, fringe);
+		success = exploreNode(maze, fringe);
+	}
+	if(y!=0 && maze[x][y-1]!='*' && maze[x][y-1]!='X' && !success) {
+		newNode = createNode(x, y-1);
+		Push(newNode, fringe);
+		success = exploreNode(maze, fringe);
+	}
+	if(x!=mazeWidth-1 && y!=0 && maze[x+1][y-1]!='*' && maze[x+1][y-1]!='X' && !success) {
+		newNode = createNode(x+1, y-1);
 		Push(newNode, fringe);
 		success = exploreNode(maze, fringe);
 	}
