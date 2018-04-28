@@ -1,0 +1,37 @@
+0	Captain America	Cap
+1	Iron Man	Irn
+2	War Machine	War
+3	Spiderman	Spi
+4	Black Panther	Pan
+5	Black Widow	Wid
+6	Nick Fury	Nik
+7	Ant Man		Ant
+8	Hawk Eye	Hwk
+9	Vision		Vis
+10	Matis		Mnt
+11	Star Lord	Str
+12	Gamora		Gam
+13	Rocket		Roc
+14	Groot		Gro
+15	Drax		Drx
+16	Thor		Thr
+17	Hulk		Hlk
+18	Loki		Lki
+19	Deadpool	Ded
+20	Jean Grey	Jen
+21	Cyclops		Cyc
+22	Wolverine	Wol
+23	Magneto		Mag
+24	Mystique	Mys
+25	Quicksilver	Qik
+26	Professor X	PrX
+27	Beast		Bst
+28	Iceman		Ice
+29	Sabertooth	Sab
+30	Gambit		Gam
+31	Thanos		Thn
+32	Ronan		Rnn
+33	Nebula		Neb
+34	Collector	Col
+35	Dormammu	Dor
+36	Hela		Hel
