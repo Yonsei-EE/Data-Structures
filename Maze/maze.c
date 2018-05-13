@@ -4,15 +4,6 @@
 #include <time.h>
 #include "binheap.h"
 
-<<<<<<< HEAD
-#define mazeWidth 15 
-#define mazeHeight 15 
- 
-void delay(int milli_seconds)
-{
-	// Converting time into milli_seconds
-	// int milli_seconds = 1000 * number_of_seconds;
-=======
 #define mazeWidth 40 
 #define mazeHeight 30 
  
@@ -20,7 +11,6 @@ void delay(int number_of_seconds)
 {
 	// Converting time into milli_seconds
 	int milli_seconds = 1000 * number_of_seconds;
->>>>>>> origin/master
 
 	// Stroing start time
 	clock_t start_time = clock();
@@ -175,11 +165,7 @@ PtrToCell exploreNode(char maze[mazeWidth][mazeHeight], PriorityQueue fringe) {
 	printf("Finding path for maze...\n");
 	printMaze(maze);
 	printf("\n\n");
-<<<<<<< HEAD
-	delay(500);
-=======
 	delay(100);
->>>>>>> origin/master
 
 	// Recursively explore next node
 	return exploreNode(maze, fringe);
@@ -197,11 +183,7 @@ void setShortestPath(char maze[mazeWidth][mazeHeight], PtrToCell goal) {
 		printf("Finding path for maze...\n");
 		printMaze(maze);
 		printf("\n\n");
-<<<<<<< HEAD
-		delay(200);
-=======
 		delay(100);
->>>>>>> origin/master
 	}
 }
 

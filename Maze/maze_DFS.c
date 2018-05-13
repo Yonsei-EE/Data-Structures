@@ -66,6 +66,8 @@ PtrToCell createNode(int x, int y) {
 	PtrToCell newNode = malloc(sizeof(struct Cell));
 	newNode->x = x;
 	newNode->y = y;
+
+	return newNode;
 }
 
 // Explore node in fringe with depth first search
