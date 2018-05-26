@@ -4,7 +4,7 @@
 #include <time.h>
 #include "binheap.h"
 
-#define lambda 2
+#define lambda 4
 int evenID = 2;
 int oddID = 1;
 
