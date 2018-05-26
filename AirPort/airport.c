@@ -54,7 +54,7 @@ void addLanding(PriorityQueue H) {
 		CDF += poisson(k);
 		if(p<CDF) {
 			for(i=0;i<k;i++) {
-				Insert(createCell(evenID, rand()%5+1), H);
+				Insert(createCell(evenID, rand()%5+10), H);
 				evenID += 2;
 			}
 		break;
